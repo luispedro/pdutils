@@ -1,0 +1,6 @@
+dist/
+build/
+pdutils.egg-info/
+*.pyc
+*.so
+*.pyd
