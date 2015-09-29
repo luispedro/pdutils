@@ -126,3 +126,21 @@ def scatter_w_color(Xs, Ys, Zs=None, shape=None, factorize=False, cmap=None, sm=
         ax.set_ylabel(yname)
     return ax
 
+def compareplotu(data, groupby, kind='boxplot', ax=None):
+    '''Compare two groups visually and print out mann-whitney U'''
+    from seaborn import apionly as sns
+    from .pdstats import mannwhitneyu
+
+    if ax is not None:
+        from matplotlib import pyplot as plt
+        fig,ax = plt.subplots()
+    if kind == 'boxplot':
+        sns.boxplot(data, groupby=groupby)
+    elif kind == 'violinplot':
+        sns.violinplot(data, groupby=groupby)
+    else:
+        raise ValueError("Unknown plot kind '{}'".format(kind))
+
+    u, p = mannwhitneyu(data, groupby=groupby)
+    print("Mann-Whitney U: p-value: {}".format(p))
+    return ax
