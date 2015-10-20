@@ -131,7 +131,7 @@ def compareplotu(data, groupby, kind='boxplot', ax=None):
     from seaborn import apionly as sns
     from .pdstats import mannwhitneyu
 
-    if ax is not None:
+    if ax is None:
         from matplotlib import pyplot as plt
         fig,ax = plt.subplots()
     if kind == 'boxplot':
