@@ -126,7 +126,7 @@ def scatter_w_color(Xs, Ys, Zs=None, shape=None, factorize=False, cmap=None, sm=
         ax.set_ylabel(yname)
     return ax
 
-def compareplotu(data, groupby, kind='boxplot', ax=None):
+def compareplotu(data, groupby, kind='boxplot', add_p_val_to_plot=True, ax=None):
     '''Compare two groups visually and print out mann-whitney U'''
     from seaborn import apionly as sns
     from .pdstats import mannwhitneyu
@@ -143,4 +143,7 @@ def compareplotu(data, groupby, kind='boxplot', ax=None):
 
     u, p = mannwhitneyu(data, groupby=groupby)
     print("Mann-Whitney U: p-value: {}".format(p))
+    if add_p_val_to_plot:
+        ax.set_title("Mann-Whitney U test p-value: {:.2}".format(p))
+
     return ax
