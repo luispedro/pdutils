@@ -27,6 +27,8 @@ def bare_axis(ax):
     ax.set_xticks([])
 
 def _is_categorical(z):
+    if isinstance(z, pd.Categorical):
+        return True
     try:
         return isinstance(z.values, pd.Categorical)
     except:
