@@ -12,7 +12,13 @@ def pdselect(dataframe, **conditions):
         dataframe = pd.DataFrame({'value': dataframe})
     for cond,value in conditions.items():
         if cond in dataframe.columns:
-            cond = dataframe[cond] == value
+            cond = (dataframe[cond] == value)
+        elif cond.endswith('__neq') or cond.endswith('__not_eq'):
+            if cond.endswith('__neq'):
+                cond = cond[:-len('__neq')]
+            elif cond.endswith('__not_eq'):
+                cond = cond[:-len('__not_eq')]
+            cond = dataframe[cond] != value
         elif cond.endswith('__gt'):
             cond = cond[:-len('__gt')]
             cond = dataframe[cond] > value
