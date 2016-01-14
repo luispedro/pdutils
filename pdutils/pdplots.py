@@ -137,9 +137,9 @@ def compareplotu(data, groupby, kind='boxplot', add_p_val_to_plot=True, ax=None)
         from matplotlib import pyplot as plt
         fig,ax = plt.subplots()
     if kind == 'boxplot':
-        sns.boxplot(data, groupby=groupby)
+        sns.boxplot(data, groupby=groupby, ax=ax)
     elif kind == 'violinplot':
-        sns.violinplot(data, groupby=groupby)
+        sns.violinplot(data, groupby=groupby, ax=ax)
     else:
         raise ValueError("Unknown plot kind '{}'".format(kind))
 
@@ -149,3 +149,4 @@ def compareplotu(data, groupby, kind='boxplot', add_p_val_to_plot=True, ax=None)
         ax.set_title("Mann-Whitney U test p-value: {:.2}".format(p))
 
     return ax
+
