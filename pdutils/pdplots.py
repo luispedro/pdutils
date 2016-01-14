@@ -128,7 +128,7 @@ def scatter_w_color(Xs, Ys, Zs=None, shape=None, factorize=False, cmap=None, sm=
         ax.set_ylabel(yname)
     return ax
 
-def compareplotu(data, groupby, kind='boxplot', add_p_val_to_plot=True, ax=None):
+def compareplotu(data, groupby, kind='box', add_p_val_to_plot=True, ax=None):
     '''Compare two groups visually and print out mann-whitney U'''
     from seaborn import apionly as sns
     from .pdstats import mannwhitneyu
@@ -136,9 +136,9 @@ def compareplotu(data, groupby, kind='boxplot', add_p_val_to_plot=True, ax=None)
     if ax is None:
         from matplotlib import pyplot as plt
         fig,ax = plt.subplots()
-    if kind == 'boxplot':
+    if kind == 'box':
         sns.boxplot(data, groupby=groupby, ax=ax)
-    elif kind == 'violinplot':
+    elif kind == 'violin':
         sns.violinplot(data, groupby=groupby, ax=ax)
     else:
         raise ValueError("Unknown plot kind '{}'".format(kind))
