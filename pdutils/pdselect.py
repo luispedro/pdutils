@@ -8,6 +8,7 @@ def pdselect(dataframe, **conditions):
     will select all rows where 'a' is 2 and 'b' is less than 3
     '''
     import pandas as pd
+    import numpy as np
     if type(dataframe) == pd.Series:
         dataframe = pd.DataFrame({'value': dataframe})
     for cond,value in conditions.items():
@@ -37,6 +38,12 @@ def pdselect(dataframe, **conditions):
         elif cond.endswith('__lte'):
             cond = cond[:-len('__lte')]
             cond = dataframe[cond] <= value
+        elif cond.endswith('__in'):
+            cond = cond[:-len('__in')]
+            cond = np.in1d(dataframe[cond], value)
+        elif cond.endswith('__not_in'):
+            cond = cond[:-len('__not_in')]
+            cond = np.in1d(dataframe[cond], value, invert=True)
         else:
             raise ValueError("Cannot process condition '{}'".format(cond))
         dataframe = dataframe[cond]
