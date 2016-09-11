@@ -40,6 +40,10 @@ def scatter_w_color(Xs, Ys, Zs=None, shape=None, factorize=False, cmap=None, sm=
     ----------
     autolabels : boolean, optional
         If true, sets the axis labels to be ``Xs.name`` and ``Ys.name``, respectively
+
+    colors : optional
+        If a list, then use these colors
+        If a dictionary, then index by values in `Zs` to obtain colors to use
     '''
     if factorize and labels:
         raise ValueError('Factorize cannot be used with labels')
@@ -101,7 +105,10 @@ def scatter_w_color(Xs, Ys, Zs=None, shape=None, factorize=False, cmap=None, sm=
         seen_label = set()
         for ci in range(Zs_max + 1):
             if Zs is not None:
-                cs = [colors[ci] for _ in range(sum(Zs == ci))]
+                if isinstance(colors, dict):
+                    cs = [colors[labels[ci]] for _ in range(sum(Zs == ci))]
+                else:
+                    cs = [colors[ci] for _ in range(sum(Zs == ci))]
                 sel_xs = Xs[Zs == ci]
                 sel_ys = Ys[Zs == ci]
                 sel_ms = ms[Zs ==ci]
