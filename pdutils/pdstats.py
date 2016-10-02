@@ -1,5 +1,5 @@
 from scipy import stats
-def mannwhitneyu(data, groupby, reindex=False):
+def mannwhitneyu(data, groupby, reindex=False, alternative='two-sided'):
     '''Mann-Whitney U based on groupby
 
     Parameters
@@ -21,7 +21,7 @@ def mannwhitneyu(data, groupby, reindex=False):
         groupby = groupby.reindex(index=data.index)
     g = data.groupby(groupby)
     g1, g2 = g.groups.values()
-    return stats.mannwhitneyu(data.ix[g1], data.ix[g2])
+    return stats.mannwhitneyu(data.ix[g1], data.ix[g2], alternative=alternative)
 
 def kruskal(data, groupby, reindex=False):
     '''Kruskal based on groupby
